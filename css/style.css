@@ -1,5 +1,5 @@
 span {
-  color: red;
+  color: #289d26;
 }
 
 .start-btn:focus {
@@ -7,5 +7,5 @@ span {
 }
 
 .text-display-box {
-  display: inline;
+  font-size: 22px;
 }
