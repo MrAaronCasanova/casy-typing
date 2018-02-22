@@ -11,6 +11,7 @@
 // ********** DOM Elements **********
 
 let textDisplayBox = document.querySelector('.text-display-box');
+let successKeys = document.querySelector('.success-keys');
 let startBtn = document.querySelector('.start-btn');
 
 // ********** Fetched Data **********
@@ -22,7 +23,8 @@ startBtn.addEventListener('click', function () {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText)[0];
-      textDisplayBox.innerHTML = '<span></span>' + resData;
+      textDisplayBox.innerHTML = resData;
+      successKeys.textContent = '';
       textData = resData;
       counter = 0;
     }
@@ -42,9 +44,8 @@ keypress.addEventListener('keypress', function (e) {
 
   if (e.which === textData.charCodeAt(counter)) {
     counter++;
-    console.log('success');
-    console.log(counter);
-    console.log(textDisplayBox.innerHTML[counter]);
+    successKeys.textContent += textData[counter - 1];
+    textDisplayBox.innerHTML = textData.slice(counter);
   } else {
     console.log('Loser');
   };

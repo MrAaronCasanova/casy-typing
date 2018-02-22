@@ -1,7 +1,11 @@
-span {
+.success-keys {
   color: red;
 }
 
 .start-btn:focus {
   outline: none;
+}
+
+.text-display-box {
+  display: inline;
 }
