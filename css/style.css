@@ -1,0 +1,7 @@
+span {
+  color: red;
+}
+
+.start-btn:focus {
+  outline: none;
+}
