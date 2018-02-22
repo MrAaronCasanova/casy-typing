@@ -24,7 +24,6 @@ startBtn.addEventListener('click', function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText)[0];
       textDisplayBox.innerHTML = resData;
-      successKeys.textContent = '';
       textData = resData;
       counter = 0;
     }
@@ -44,18 +43,10 @@ keypress.addEventListener('keypress', function (e) {
 
   if (e.which === textData.charCodeAt(counter)) {
     counter++;
-    successKeys.textContent += textData[counter - 1];
-    textDisplayBox.innerHTML = textData.slice(counter);
+    textDisplayBox.innerHTML = '<span>' + textData.slice(0, counter) + '</span>' + textData.slice(counter);
   } else {
     console.log('Loser');
-  };
-
-  // if (e.which === textData[counter]) {
-  //
-  // }
-
-  // console.log(textData[counter]);
-  // console.log(e.which)
+  }
 });
 
 // ********** Custom Code **********
