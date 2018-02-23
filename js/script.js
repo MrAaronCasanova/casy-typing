@@ -120,6 +120,8 @@ document.addEventListener('click', function (e) {
 
 // ********** TODO **********
 // TODO: save textData.length to variable and refactor everywhere
+// TODO: set .focus() method after start click button to point to the body
+// TODO: add if statement when game ends so no additional keypress will trigger game over data
 // TODO: find more apis to use
 // TODO: make a random api fetch selector using math random everytime you click
 // TODO: eventually make backspace logic to correct errors
