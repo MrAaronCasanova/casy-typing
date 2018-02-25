@@ -4,9 +4,27 @@ let textDisplayBox = document.querySelector('.text-display-box');
 let score = document.querySelector('.score');
 let startBtn = document.querySelector('.start-btn');
 
-// ********** Fetched Data **********
+// ********** Start Game **********
 
 startBtn.addEventListener('click', function () {
+  let apis = [ronQuotes, numFacts, talaikis];
+  let randomApi = Math.floor(Math.random() * apis.length);
+  apis[randomApi]();
+
+  // working ***
+  // talaikis();
+  // numFacts();
+  // ronQuotes();
+
+  // not working ***
+  // quotesOnDesign();
+  // forismatic();
+  // catFacts();
+});
+
+// ********** Fetched Data **********
+
+function ronQuotes() {
   let ronUrl = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
   let xhr = new XMLHttpRequest();
   xhr.open('GET', ronUrl);
@@ -29,7 +47,94 @@ startBtn.addEventListener('click', function () {
   };
 
   xhr.send();
-});
+}
+
+function numFacts() {
+  let numUrl = 'http://numbersapi.com/random/';
+  let urlSuffix = ['trivia', 'year', 'date', 'math'];
+  let randomSuffix = Math.floor(Math.random() * urlSuffix.length);
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', numUrl + urlSuffix[randomSuffix]);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let resData = xhr.responseText;
+      // display api content on page
+      textDisplayBox.innerHTML = resData;
+
+      // zero out score information on page
+      score.textContent = '';
+
+      // assign responce data to textData var for use in game logic
+      textData = resData;
+
+      // reset counters
+      counter = 0;
+      loserCount = 0;
+    }
+  };
+
+  xhr.send();
+}
+
+function talaikis() {
+  let talaikisUrl = 'https://talaikis.com/api/quotes/random/';
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', talaikisUrl);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let resData = JSON.parse(xhr.responseText);
+      let mainText = resData.quote + ' - ' + resData.author;
+      // display api content on page
+      textDisplayBox.innerHTML = mainText;
+
+      // zero out score information on page
+      score.textContent = '';
+
+      // assign responce data to textData var for use in game logic
+      textData = mainText;
+
+      // reset counters
+      counter = 0;
+      loserCount = 0;
+    }
+  };
+
+  xhr.send();
+}
+
+// function catFacts() {
+//   let catUrl = 'https://cat-fact.herokuapp.com/facts';
+//   fetch(catUrl)
+//   .then(function () {
+//     console.log('helloWorld');
+//   });
+// }
+
+// function forismatic() {
+//   let forisUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=xml&lang=en';
+//   let xhr = new XMLHttpRequest();
+//   xhr.open('GET', forisUrl);
+//   xhr.onreadystatechange = function () {
+//     if (xhr.readyState == 4 && xhr.status == 200) {
+//       let resData = xhr.responseText;
+//       // display api content on page
+//       textDisplayBox.innerHTML = resData;
+//
+//       // zero out score information on page
+//       score.textContent = '';
+//
+//       // assign responce data to textData var for use in game logic
+//       textData = resData;
+//
+//       // reset counters
+//       counter = 0;
+//       loserCount = 0;
+//     }
+//   };
+//
+//   xhr.send();
+// }
+
 
 // ********** Type Functionality **********
 
@@ -119,6 +224,7 @@ document.addEventListener('click', function (e) {
 // https://www.speedtypingonline.com/typing-equations
 
 // ********** TODO **********
+// TODO: refactor duplicate update DOM code every xml request
 // TODO: save textData.length to variable and refactor everywhere
 // TODO: set .focus() method after start click button to point to the body
 // TODO: turn incorrect letters red
