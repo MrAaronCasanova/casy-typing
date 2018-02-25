@@ -1,10 +1,20 @@
+* {
+  font-family: Roboto, sans-serif;
+}
+
 body {
   background: #e7e7e7;
+}
+
+.logo {
+  font-weight: 200;
+  color: #7e7e7e;
 }
 
 h1 {
   text-align: center;
   margin-top: 50px;
+  font-weight: 700;
 }
 
 span {
@@ -17,4 +27,8 @@ span {
 
 .text-display-box {
   font-size: 22px;
+}
+
+.card {
+  box-shadow: 1px 4px 10px rgba(36, 36, 36, 0.44);
 }

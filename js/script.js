@@ -5,9 +5,9 @@ let score = document.querySelector('.score');
 let startBtn = document.querySelector('.start-btn');
 
 // ********** Fetched Data **********
-let ronUrl = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
 
 startBtn.addEventListener('click', function () {
+  let ronUrl = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
   let xhr = new XMLHttpRequest();
   xhr.open('GET', ronUrl);
   xhr.onreadystatechange = function () {
@@ -80,7 +80,7 @@ keypress.addEventListener('keypress', function (e) {
       loserCount++;
 
       // update page to reflect loserCount
-      score.textContent = loserCount;
+      score.textContent = 'Wrong: ' + loserCount;
     }
   } else {
     // game over logic
@@ -127,3 +127,13 @@ document.addEventListener('click', function (e) {
 // TODO: make a random api fetch selector using math random everytime you click
 // TODO: eventually make backspace logic to correct errors
 // TODO:  / reverse loserCount - only then can we use netWPM
+
+// NOTE: https://www.programmableweb.com/api/notable-and-quotable-random-quote
+// NOTE: https://www.programmableweb.com/api/cat-facts
+// NOTE: https://www.programmableweb.com/api/act-facts
+// NOTE: https://www.programmableweb.com/api/chuck-norris-facts
+// NOTE: https://www.programmableweb.com/api/numbers
+// NOTE: https://www.programmableweb.com/api/musicgraph
+// NOTE: https://www.programmableweb.com/api/artfacts
+// NOTE: https://www.programmableweb.com/api/tarya-technologies-randomquotes
+// NOTE: https://www.programmableweb.com/api/quotations-book
