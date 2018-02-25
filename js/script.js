@@ -10,6 +10,7 @@ startBtn.addEventListener('click', function () {
   let apis = [ronQuotes, numFacts, talaikis];
   let randomApi = Math.floor(Math.random() * apis.length);
   apis[randomApi]();
+  textDisplayBox.focus();
 
   // working ***
   // talaikis();
@@ -31,6 +32,7 @@ function ronQuotes() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText)[0];
+
       // display api content on page
       textDisplayBox.innerHTML = resData;
 
@@ -58,6 +60,7 @@ function numFacts() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = xhr.responseText;
+
       // display api content on page
       textDisplayBox.innerHTML = resData;
 
@@ -84,6 +87,7 @@ function talaikis() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText);
       let mainText = resData.quote + ' - ' + resData.author;
+
       // display api content on page
       textDisplayBox.innerHTML = mainText;
 
@@ -135,7 +139,6 @@ function talaikis() {
 //   xhr.send();
 // }
 
-
 // ********** Type Functionality **********
 
 // successfull keypress
@@ -176,7 +179,9 @@ keypress.addEventListener('keypress', function (e) {
       counter++;
 
       // update page contents to reflect successfull keypress
-      textDisplayBox.innerHTML = '<span>' + textData.slice(0, counter) + '</span>' + textData.slice(counter);
+      textDisplayBox.innerHTML = '<span>' +
+      textData.slice(0, counter) + '</span>' +
+      textData.slice(counter);
 
       // start game timer - aka. holds starting time in variable via ms
       if (counter === 1) { startTime = new Date().getTime(); }
@@ -190,22 +195,28 @@ keypress.addEventListener('keypress', function (e) {
   } else {
     // game over logic
 
-    // stores end time in variable via ms
-    endTime = new Date().getTime();
+    if (counter === textData.length) {
+      counter++;
 
-    // calulates total game play time and converts ms to sec
-    finalTime = (endTime - startTime) / 1000;
+      // stores end time in variable via ms
+      endTime = new Date().getTime();
 
-    // calutates WPM logic - view resources for web reference
-    // side note: finalTime / 60 converts seconds to minutes
-    grossWPM = ((textData.length / 5) / (finalTime / 60)).toFixed(2);
-    netWPM = (grossWPM - (loserCount / (finalTime / 60))).toFixed(2);
+      // calulates total game play time and converts ms to sec
+      finalTime = (endTime - startTime) / 1000;
 
-    // accuracy logic
-    accuracy = (((textData.length - loserCount) / textData.length) * 100).toFixed(2);
+      // calutates WPM logic - view resources for web reference
+      // side note: finalTime / 60 converts seconds to minutes
+      grossWPM = ((textData.length / 5) / (finalTime / 60)).toFixed(2);
+      netWPM = (grossWPM - (loserCount / (finalTime / 60))).toFixed(2);
 
-    // update page with score information
-    score.textContent = 'Nice work: Completed with ' + accuracy + '% accuracy!' + ' grossWPM: ' + grossWPM;
+      // accuracy logic
+      accuracy = (((textData.length - loserCount) / textData.length) * 100).toFixed(2);
+
+      // update page with score information
+      score.textContent = 'Nice work: Completed with ' +
+      accuracy + '% accuracy!' + ' grossWPM: ' +
+      grossWPM;
+    }
   }
 });
 
@@ -214,6 +225,7 @@ keypress.addEventListener('keypress', function (e) {
 // https://github.com/react-bootstrap/react-bootstrap/issues/1300
 // Deselects button after initial click
 // & spacebar won't click the button
+
 document.addEventListener('click', function (e) {
   if (document.activeElement.toString() == '[object HTMLButtonElement]') {
     document.activeElement.blur();
@@ -228,9 +240,7 @@ document.addEventListener('click', function (e) {
 // TODO: save textData.length to variable and refactor everywhere
 // TODO: set .focus() method after start click button to point to the body
 // TODO: turn incorrect letters red
-// TODO: add if statement when game ends so no additional keypress will trigger game over data
 // TODO: find more apis to use
-// TODO: make a random api fetch selector using math random everytime you click
 // TODO: eventually make backspace logic to correct errors
 // TODO:  / reverse loserCount - only then can we use netWPM
 
