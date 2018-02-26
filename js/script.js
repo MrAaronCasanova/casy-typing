@@ -309,13 +309,8 @@ document.addEventListener('click', function (e) {
 // https://www.speedtypingonline.com/typing-equations
 
 // ********** TODO **********
-// TODO: refactor duplicate update DOM code every xml request
-// TODO: save textData.length to variable and refactor everywhere
-// TODO: set .focus() method after start click button to point to the body
-// TODO: turn incorrect letters red
 // TODO: find more apis to use
-// TODO: eventually make backspace logic to correct errors
-// TODO:  / reverse loserCount - only then can we use netWPM
+// TODO: make score infor on page show count / textData length - aka count/out of some num
 
 // NOTE: https://www.programmableweb.com/api/notable-and-quotable-random-quote
 // NOTE: https://www.programmableweb.com/api/cat-facts
