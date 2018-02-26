@@ -1,0 +1,24 @@
+{
+  "name": "casy-typing",
+  "version": "1.0.0",
+  "description": "Improve your typing and learn interesting facts!",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrAaronCasanova/casy-typing.git"
+  },
+  "author": "Aaron Casanova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrAaronCasanova/casy-typing/issues"
+  },
+  "homepage": "https://github.com/MrAaronCasanova/casy-typing#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  }
+}

@@ -44,12 +44,13 @@ function ronQuotes() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText)[0];
+      let mainText = resData + ' - Ron Swanson';
 
       // display api content on page
-      textDisplayBox.innerHTML = resData;
+      textDisplayBox.innerHTML = mainText;
 
       // assign responce data to textData var for use in game logic
-      textData = resData;
+      textData = mainText;
     }
   };
 
