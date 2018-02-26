@@ -36,5 +36,6 @@ em {
 }
 
 .card {
-  box-shadow: 1px 4px 10px rgba(36, 36, 36, 0.44);
+  /* box-shadow: 1px 4px 10px rgba(36, 36, 36, 0.44); */
+  box-shadow: 4px 10px 40px rgba(36, 36, 36, 0.44);
 }

@@ -7,18 +7,22 @@ let startBtn = document.querySelector('.start-btn');
 // ********** Start Game **********
 
 startBtn.addEventListener('click', function () {
+  newGame();
+});
+
+function newGame() {
   let apis = [ronQuotes, numFacts, talaikis];
   let randomApi = Math.floor(Math.random() * apis.length);
   apis[randomApi]();
-  textDisplayBox.focus();
 
   // reset counters
   counter = 0;
   loserCount = 0;
+  loserArr = [];
   keypressArr = [];
 
-  // zero out score information on page
-  score.textContent = '';
+  // // zero out score information on page
+  score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
 
   // working ***
   // talaikis();
@@ -29,7 +33,7 @@ startBtn.addEventListener('click', function () {
   // quotesOnDesign();
   // forismatic();
   // catFacts();
-});
+}
 
 // ********** Fetched Data **********
 
@@ -122,7 +126,7 @@ function talaikis() {
 // ********** Type Functionality **********
 
 // textData holds fetch data
-let textData;
+let textData = 'Game Text Goes Here! - This will be overwritten everytime newGame() is invoked';
 
 // current position
 let counter = 0;
@@ -154,12 +158,14 @@ let grossWPM;
 // calcuation of net words per minute accounting for errors
 let netWPM;
 
-// backspace logic
+// backspace & enter keypress logic
 document.addEventListener('keydown', function (e) {
   // targets the backspace keypress
   if (e.which === 8) {
     // won't let you backspace at starting position
     if (counter > 0) {
+      // backspace logic
+
       // sets counter back
       counter--;
 
@@ -185,13 +191,23 @@ document.addEventListener('keydown', function (e) {
       score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
     }
   }
+
+  // NOTE: WILL LEAVE THIS CODE FOR NOW / IF ENTER KEY BREAKS
+  // if (e.which === 13) {
+  //   // ^^^ targets the enter keypress
+  //   // vvv only works works at the end of the game
+  //   if (counter > textData.length) {
+  //     // enter keypress logic
+  //     newGame();
+  //   }
+  // }
 });
 
 // monitoring any keypress on the body of the page
 let keypress = document.querySelector('body');
 keypress.addEventListener('keypress', function (e) {
   // checks counter against textData.length to verify if game is active
-  if (counter < textData.length) {
+  if (counter < textData.length && e.which !== 13) {
     // checks if keypress matches the charCode of specific textData char
     if (e.which === textData.charCodeAt(counter)) {
       // start game timer - aka. holds starting time in variable via ms
@@ -236,6 +252,17 @@ keypress.addEventListener('keypress', function (e) {
     }
   } else {
     // game over logic
+
+    // targets the enter keypress
+    if (e.which === 13) {
+      if (counter > textData.length) {
+        // only works works at the end of the game
+        newGame();
+      } else if (e.shiftKey) {
+        // force newGame with shift + enter
+        newGame();
+      }
+    }
 
     if (counter === textData.length) {
       // increment counter so game can't continue
@@ -299,7 +326,3 @@ document.addEventListener('click', function (e) {
 // NOTE: https://www.programmableweb.com/api/artfacts
 // NOTE: https://www.programmableweb.com/api/tarya-technologies-randomquotes
 // NOTE: https://www.programmableweb.com/api/quotations-book
-
-// make loserCount an array store index of incorrect values
-// check back space count to index val in losercount
-// use loserCount.length to calc num of incorrect keypesses at end of game
