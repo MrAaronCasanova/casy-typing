@@ -12,6 +12,14 @@ startBtn.addEventListener('click', function () {
   apis[randomApi]();
   textDisplayBox.focus();
 
+  // reset counters
+  counter = 0;
+  loserCount = 0;
+  keypressArr = [];
+
+  // zero out score information on page
+  score.textContent = '';
+
   // working ***
   // talaikis();
   // numFacts();
@@ -36,15 +44,8 @@ function ronQuotes() {
       // display api content on page
       textDisplayBox.innerHTML = resData;
 
-      // zero out score information on page
-      score.textContent = '';
-
       // assign responce data to textData var for use in game logic
       textData = resData;
-
-      // reset counters
-      counter = 0;
-      loserCount = 0;
     }
   };
 
@@ -64,15 +65,8 @@ function numFacts() {
       // display api content on page
       textDisplayBox.innerHTML = resData;
 
-      // zero out score information on page
-      score.textContent = '';
-
       // assign responce data to textData var for use in game logic
       textData = resData;
-
-      // reset counters
-      counter = 0;
-      loserCount = 0;
     }
   };
 
@@ -91,15 +85,8 @@ function talaikis() {
       // display api content on page
       textDisplayBox.innerHTML = mainText;
 
-      // zero out score information on page
-      score.textContent = '';
-
       // assign responce data to textData var for use in game logic
       textData = mainText;
-
-      // reset counters
-      counter = 0;
-      loserCount = 0;
     }
   };
 
@@ -124,15 +111,8 @@ function talaikis() {
 //       // display api content on page
 //       textDisplayBox.innerHTML = resData;
 //
-//       // zero out score information on page
-//       score.textContent = '';
-//
 //       // assign responce data to textData var for use in game logic
 //       textData = resData;
-//
-//       // reset counters
-//       counter = 0;
-//       loserCount = 0;
 //     }
 //   };
 //
@@ -141,11 +121,20 @@ function talaikis() {
 
 // ********** Type Functionality **********
 
-// successfull keypress
+// textData holds fetch data
+let textData;
+
+// current position
 let counter = 0;
 
-// incorrect keypress
+// incorrect keypress references
+// are stored in loserArr
+let loserArr = [];
 let loserCount = 0;
+
+// All keypress characters are stored in this array
+let keypressArr = [];
+let joinedText;
 
 // typing accuracy in percentage
 let accuracy;
@@ -165,8 +154,38 @@ let grossWPM;
 // calcuation of net words per minute accounting for errors
 let netWPM;
 
-// textData holds fetch data
-let textData;
+// backspace logic
+document.addEventListener('keydown', function (e) {
+  // targets the backspace keypress
+  if (e.which === 8) {
+    // won't let you backspace at starting position
+    if (counter > 0) {
+      // sets counter back
+      counter--;
+
+      // removes last item added to keypress array
+      keypressArr.pop();
+
+      // join keypress array for textDisplayBox
+      joinedText = keypressArr.join('');
+
+      // update DOM/Display text
+      textDisplayBox.innerHTML = '<span>' + joinedText +
+      '</span>' + textData.slice(counter);
+
+      // checks if any incorrect keypress references match the current counter position (boolean)
+      let checkCount = loserArr.some(function (val) {
+        return val === counter;
+      });
+
+      // if checkCount is true / the incorrect keypress reference is remove from the array
+      if (checkCount) loserArr.pop();
+
+      // update page to reflect score
+      score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
+    }
+  }
+});
 
 // monitoring any keypress on the body of the page
 let keypress = document.querySelector('body');
@@ -175,28 +194,55 @@ keypress.addEventListener('keypress', function (e) {
   if (counter < textData.length) {
     // checks if keypress matches the charCode of specific textData char
     if (e.which === textData.charCodeAt(counter)) {
-      // increment counter
+      // start game timer - aka. holds starting time in variable via ms
+      if (counter === 0) startTime = new Date().getTime();
+
+      // stores character at current counter position in keypress array
+      keypressArr.push(textData[counter]);
+
+      // join keypress array for textDisplayBox
+      joinedText = keypressArr.join('');
+
+      // update DOM/Display text
+      textDisplayBox.innerHTML = '<span>' + joinedText +
+      '</span>' + textData.slice(counter + 1);
+
+      // increment counter / current position
       counter++;
 
-      // update page contents to reflect successfull keypress
-      textDisplayBox.innerHTML = '<span>' +
-      textData.slice(0, counter) + '</span>' +
-      textData.slice(counter);
-
-      // start game timer - aka. holds starting time in variable via ms
-      if (counter === 1) { startTime = new Date().getTime(); }
+      // update page to reflect score
+      score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
     } else {
-      // increment loserCount
-      loserCount++;
+      // push incorrect keypress reference to loserArr
+      loserArr.push(counter);
 
-      // update page to reflect loserCount
-      score.textContent = 'Wrong: ' + loserCount;
+      // stores incorrect character at current counter position in keypress array
+      keypressArr.push('<em>' +
+      textData[counter] +
+      '</em>');
+
+      // join keypress array for textDisplayBox
+      joinedText = keypressArr.join('');
+
+      // update DOM/Display text
+      textDisplayBox.innerHTML = '<span>' + joinedText +
+      '</span>' + textData.slice(counter + 1);
+
+      // increment counter / current position
+      counter++;
+
+      // update page to reflect score
+      score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
     }
   } else {
     // game over logic
 
     if (counter === textData.length) {
+      // increment counter so game can't continue
       counter++;
+
+      // calculates loserCount from items left in loserArr
+      loserCount = loserArr.length;
 
       // stores end time in variable via ms
       endTime = new Date().getTime();
@@ -215,7 +261,7 @@ keypress.addEventListener('keypress', function (e) {
       // update page with score information
       score.textContent = 'Nice work: Completed with ' +
       accuracy + '% accuracy!' + ' grossWPM: ' +
-      grossWPM;
+      grossWPM + ' netWPM: ' + netWPM;
     }
   }
 });
@@ -253,3 +299,7 @@ document.addEventListener('click', function (e) {
 // NOTE: https://www.programmableweb.com/api/artfacts
 // NOTE: https://www.programmableweb.com/api/tarya-technologies-randomquotes
 // NOTE: https://www.programmableweb.com/api/quotations-book
+
+// make loserCount an array store index of incorrect values
+// check back space count to index val in losercount
+// use loserCount.length to calc num of incorrect keypesses at end of game
