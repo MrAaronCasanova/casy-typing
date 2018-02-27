@@ -134,7 +134,8 @@ function talaikis() {
 // ********** Type Functionality **********
 
 // textData holds fetch data
-let textData = 'Press Shift + Enter or Click the Start Button';
+let textData = null;
+// let textData = 'Press Shift + Enter or Click the Start Button';
 
 // current position
 let counter = 0;
@@ -199,13 +200,24 @@ document.addEventListener('keydown', function (e) {
       score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
     }
   }
+
+  // targets the enter keypress
+  if (e.which === 13) {
+    if (e.shiftKey) {
+      // force newGame with shift + enter
+      newGame();
+    } else if (counter > textData.length) {
+      // only works works at the end of the game
+      newGame();
+    }
+  }
 });
 
 // monitoring any keypress on the body of the page
 let keypress = document.querySelector('body');
 keypress.addEventListener('keypress', function (e) {
   // checks counter against textData.length to verify if game is active
-  if (counter < textData.length && e.which !== 13) {
+  if (textData !== null && counter < textData.length && e.which !== 13) {
     // checks if keypress matches the charCode of specific textData char
     if (e.which === textData.charCodeAt(counter)) {
       // start game timer - aka. holds starting time in variable via ms
@@ -251,18 +263,7 @@ keypress.addEventListener('keypress', function (e) {
   } else {
     // game over logic
 
-    // targets the enter keypress
-    if (e.which === 13) {
-      if (counter > textData.length) {
-        // only works works at the end of the game
-        newGame();
-      } else if (e.shiftKey) {
-        // force newGame with shift + enter
-        newGame();
-      }
-    }
-
-    if (counter === textData.length) {
+    if (textData !== null && counter === textData.length) {
       // increment counter so game can't continue
       counter++;
 
@@ -284,7 +285,7 @@ keypress.addEventListener('keypress', function (e) {
       accuracy = (((textData.length - loserCount) / textData.length) * 100).toFixed(2);
 
       // update page with score information
-      score.textContent = 'Typing Test Complete';
+      score.innerHTML = 'Press Enter to Start New Game';
 
       wpmDisp.textContent = netWPM;
       accuracyDisp.textContent = accuracy + '%';

@@ -12,6 +12,11 @@ h1 {
   font-weight: 700;
 }
 
+h6 {
+  color: #6e6e6e;
+  letter-spacing: 4px;
+}
+
 .logo {
   font-size: 40px;
   font-weight: 200;
@@ -53,9 +58,9 @@ em {
   text-decoration: underline;
 }
 
-/* .start-btn:focus {
+.start-btn:focus {
   outline: none;
-} */
+}
 
 .shadow {
   /* box-shadow: 1px 4px 10px rgba(36, 36, 36, 0.44); */
