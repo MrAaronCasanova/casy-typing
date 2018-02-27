@@ -199,16 +199,6 @@ document.addEventListener('keydown', function (e) {
       score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
     }
   }
-
-  // NOTE: WILL LEAVE THIS CODE FOR NOW / IF ENTER KEY BREAKS
-  // if (e.which === 13) {
-  //   // ^^^ targets the enter keypress
-  //   // vvv only works works at the end of the game
-  //   if (counter > textData.length) {
-  //     // enter keypress logic
-  //     newGame();
-  //   }
-  // }
 });
 
 // monitoring any keypress on the body of the page
