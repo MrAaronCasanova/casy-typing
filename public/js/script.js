@@ -135,6 +135,7 @@ function talaikis() {
 
 // textData holds fetch data
 let textData = null;
+
 // let textData = 'Press Shift + Enter or Click the Start Button';
 
 // current position
@@ -206,7 +207,7 @@ document.addEventListener('keydown', function (e) {
     if (e.shiftKey) {
       // force newGame with shift + enter
       newGame();
-    } else if (counter > textData.length) {
+    } else if (textData !== null && counter > textData.length) {
       // only works works at the end of the game
       newGame();
     }
