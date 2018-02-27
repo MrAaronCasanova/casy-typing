@@ -3,6 +3,11 @@
 let textDisplayBox = document.querySelector('.text-display-box');
 let score = document.querySelector('.score');
 let startBtn = document.querySelector('.start-btn');
+let cardFooter = document.querySelector('.card-footer');
+let wpmDisp = document.querySelector('.wpmDisp');
+let accuracyDisp = document.querySelector('.accuracyDisp');
+let correctDisp = document.querySelector('.correctDisp');
+let incorrectDisp = document.querySelector('.incorrectDisp');
 
 // ********** Start Game **********
 
@@ -21,8 +26,10 @@ function newGame() {
   loserArr = [];
   keypressArr = [];
 
-  // // zero out score information on page
-  score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
+  // zero out score information on page
+  score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
+
+  cardFooter.classList.add('hide');
 
   // working ***
   // talaikis();
@@ -47,7 +54,7 @@ function ronQuotes() {
       let mainText = resData + ' - Ron Swanson';
 
       // display api content on page
-      textDisplayBox.innerHTML = mainText;
+      textDisplayBox.innerHTML = '<span></span>' + mainText;
 
       // assign responce data to textData var for use in game logic
       textData = mainText;
@@ -68,7 +75,7 @@ function numFacts() {
       let resData = xhr.responseText;
 
       // display api content on page
-      textDisplayBox.innerHTML = resData;
+      textDisplayBox.innerHTML = '<span></span>' + resData;
 
       // assign responce data to textData var for use in game logic
       textData = resData;
@@ -88,7 +95,7 @@ function talaikis() {
       let mainText = resData.quote + ' - ' + resData.author;
 
       // display api content on page
-      textDisplayBox.innerHTML = mainText;
+      textDisplayBox.innerHTML = '<span></span>' + mainText;
 
       // assign responce data to textData var for use in game logic
       textData = mainText;
@@ -127,7 +134,7 @@ function talaikis() {
 // ********** Type Functionality **********
 
 // textData holds fetch data
-let textData = 'Game Text Goes Here! - This will be overwritten everytime newGame() is invoked';
+let textData = 'Press Shift + Enter or Click the Start Button';
 
 // current position
 let counter = 0;
@@ -189,7 +196,7 @@ document.addEventListener('keydown', function (e) {
       if (checkCount) loserArr.pop();
 
       // update page to reflect score
-      score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
+      score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
     }
   }
 
@@ -228,7 +235,7 @@ keypress.addEventListener('keypress', function (e) {
       counter++;
 
       // update page to reflect score
-      score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
+      score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
     } else {
       // push incorrect keypress reference to loserArr
       loserArr.push(counter);
@@ -249,7 +256,7 @@ keypress.addEventListener('keypress', function (e) {
       counter++;
 
       // update page to reflect score
-      score.textContent = 'Wrong: ' + loserArr.length + ' Count: ' + counter;
+      score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
     }
   } else {
     // game over logic
@@ -287,9 +294,14 @@ keypress.addEventListener('keypress', function (e) {
       accuracy = (((textData.length - loserCount) / textData.length) * 100).toFixed(2);
 
       // update page with score information
-      score.textContent = 'Nice work: Completed with ' +
-      accuracy + '% accuracy!' + ' grossWPM: ' +
-      grossWPM + ' netWPM: ' + netWPM;
+      score.textContent = 'Typing Test Complete';
+
+      wpmDisp.textContent = netWPM;
+      accuracyDisp.textContent = accuracy + '%';
+      correctDisp.textContent = textData.length - loserCount;
+      incorrectDisp.textContent = loserCount;
+
+      cardFooter.classList.toggle('hide');
     }
   }
 });
