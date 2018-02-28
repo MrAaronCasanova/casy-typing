@@ -35,6 +35,7 @@ function newGame() {
 // ********** Fetched Data **********
 
 function csTerms() {
+  // terms from http://www.labautopedia.org/mw/List_of_programming_and_computer_science_terms
   let termsUrl = 'https://raw.githubusercontent.com/MrAaronCasanova/casy-typing-resources/master/labautopedia-terms/labautopedia-terms';
   let urlSuffix = '.json';
   let randomUrlNum = Math.floor(Math.random() * 13);
@@ -338,7 +339,18 @@ document.addEventListener('click', function (e) {
 // NOTE: https://www.programmableweb.com/api/quotations-book
 // NOTE: https://fact.birb.pw/
 
-
-
 // NOTE: http://www.labautopedia.org/mw/List_of_programming_and_computer_science_terms
 // NOTE: https://www.computerhope.com/jargon/program.htm
+
+// NOTE: Solved 'Access-Control-Allow-Origin' with 'All Orgins'
+// http://multiverso.me/AllOrigins/
+
+// Fix below vvv
+
+// fetch('http://allorigins.me/get?url=' + encodeURIComponent('https://fact.birb.pw/api/v1/dog'))
+//   .then(function(response) {
+//     return response.json();
+//   })
+//   .then(function(myJson) {
+//     console.log(JSON.parse(myJson.contents).string);
+//   });
