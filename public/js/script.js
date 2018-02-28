@@ -16,7 +16,7 @@ startBtn.addEventListener('click', function () {
 });
 
 function newGame() {
-  let apis = [ronQuotes, numFacts, talaikis];
+  let apis = [ronQuotes, numFacts, talaikis, catFacts, csTerms, csTerms, csTerms, csTerms, csTerms, csTerms, csTerms];
   let randomApi = Math.floor(Math.random() * apis.length);
   apis[randomApi]();
 
@@ -30,19 +30,32 @@ function newGame() {
   score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
 
   cardFooter.classList.add('hide');
-
-  // working ***
-  // talaikis();
-  // numFacts();
-  // ronQuotes();
-
-  // not working ***
-  // quotesOnDesign();
-  // forismatic();
-  // catFacts();
 }
 
 // ********** Fetched Data **********
+
+function csTerms() {
+  let termsUrl = 'https://raw.githubusercontent.com/MrAaronCasanova/casy-typing-resources/master/labautopedia-terms/labautopedia-terms';
+  let urlSuffix = '.json';
+  let randomUrlNum = Math.floor(Math.random() * 13);
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', termsUrl + randomUrlNum + urlSuffix);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let resData = JSON.parse(xhr.responseText);
+      let randomNum = Math.floor(Math.random() * resData.length);
+      let mainText = resData[randomNum];
+
+      // display api content on page
+      textDisplayBox.innerHTML = '<span></span>' + mainText;
+
+      // assign responce data to textData var for use in game logic
+      textData = mainText;
+    }
+  };
+
+  xhr.send();
+}
 
 function ronQuotes() {
   let ronUrl = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
@@ -105,31 +118,26 @@ function talaikis() {
   xhr.send();
 }
 
-// function catFacts() {
-//   let catUrl = 'https://cat-fact.herokuapp.com/facts';
-//   fetch(catUrl)
-//   .then(function () {
-//     console.log('helloWorld');
-//   });
-// }
+function catFacts() {
+  let catFactsUrl = 'https://raw.githubusercontent.com/vadimdemedes/cat-facts/master/cat-facts.json';
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', catFactsUrl);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      let resData = JSON.parse(xhr.responseText);
+      let randomNum = Math.floor(Math.random() * resData.length);
+      let mainText = resData[randomNum];
 
-// function forismatic() {
-//   let forisUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=xml&lang=en';
-//   let xhr = new XMLHttpRequest();
-//   xhr.open('GET', forisUrl);
-//   xhr.onreadystatechange = function () {
-//     if (xhr.readyState == 4 && xhr.status == 200) {
-//       let resData = xhr.responseText;
-//       // display api content on page
-//       textDisplayBox.innerHTML = resData;
-//
-//       // assign responce data to textData var for use in game logic
-//       textData = resData;
-//     }
-//   };
-//
-//   xhr.send();
-// }
+      // display api content on page
+      textDisplayBox.innerHTML = '<span></span>' + mainText;
+
+      // assign responce data to textData var for use in game logic
+      textData = mainText;
+    }
+  };
+
+  xhr.send();
+}
 
 // ********** Type Functionality **********
 
@@ -316,6 +324,8 @@ document.addEventListener('click', function (e) {
 // ********** TODO **********
 // TODO: find more apis to use
 // TODO: make score infor on page show count / textData length - aka count/out of some num
+// TODO: disable spacebar scrolling
+// TODO: disable zooming
 
 // NOTE: https://www.programmableweb.com/api/notable-and-quotable-random-quote
 // NOTE: https://www.programmableweb.com/api/cat-facts
@@ -326,3 +336,9 @@ document.addEventListener('click', function (e) {
 // NOTE: https://www.programmableweb.com/api/artfacts
 // NOTE: https://www.programmableweb.com/api/tarya-technologies-randomquotes
 // NOTE: https://www.programmableweb.com/api/quotations-book
+// NOTE: https://fact.birb.pw/
+
+
+
+// NOTE: http://www.labautopedia.org/mw/List_of_programming_and_computer_science_terms
+// NOTE: https://www.computerhope.com/jargon/program.htm
