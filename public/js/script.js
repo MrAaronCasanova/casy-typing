@@ -327,7 +327,9 @@ document.addEventListener('click', function (e) {
 // TODO: make score infor on page show count / textData length - aka count/out of some num
 // TODO: disable spacebar scrolling
 // TODO: disable zooming
+// TODO: integrate input type range slider to select what xhr
 
+// ********** NOTE **********
 // NOTE: https://www.programmableweb.com/api/notable-and-quotable-random-quote
 // NOTE: https://www.programmableweb.com/api/cat-facts
 // NOTE: https://www.programmableweb.com/api/act-facts
@@ -341,6 +343,9 @@ document.addEventListener('click', function (e) {
 
 // NOTE: http://www.labautopedia.org/mw/List_of_programming_and_computer_science_terms
 // NOTE: https://www.computerhope.com/jargon/program.htm
+// NOTE: http://computer.yourdictionary.com/#
+
+
 
 // NOTE: Solved 'Access-Control-Allow-Origin' with 'All Orgins'
 // http://multiverso.me/AllOrigins/
