@@ -1,49 +1,71 @@
-let currentCategory = randomCategory;
+// ********** Global Variables **********
+
+// textData holds fetch data
+let textData = null;
+
+// current position
+let counter = 0;
+
+// incorrect keypress references
+// are stored in loserArr
+let loserArr = [];
+let loserCount = 0;
+
+// All keypress characters are stored in this array
+let keypressArr = [];
+let joinedText;
+
+// typing accuracy in percentage
+let accuracy;
+
+// start time stored in milliseconds from 1970
+let startTime;
+
+// end time stored in milliseconds from 1970
+let endTime;
+
+// difference of endTime and startTime and converted ms to sec
+let finalTime;
+
+// calcuation of gross words per minute not accounting for errors
+let grossWPM;
+
+// calcuation of net words per minute accounting for errors
+let netWPM;
+
+// categories pointing to each xhr
 let apis = [randomCategory, ronQuotes, numFacts, talaikis, catFacts, csTerms];
+
+// starting category - updates via range slider
+let currentCategory = randomCategory;
+
+// used to display selected category
 let categoryDesc = ['Random Category', 'Ron Swanson Quotes', 'Numeric Facts', 'Quotes on Quotes on Quotes', 'Cat Facts', 'Computer Science Terms'];
 
 // ********** DOM Elements **********
 
-let textDisplayBox = document.querySelector('.text-display-box');
-let score = document.querySelector('.score');
 let startBtn = document.querySelector('.start-btn');
+let score = document.querySelector('.score');
+let textCategory = document.querySelector('.text-category');
+let textDisplayBox = document.querySelector('.text-display-box');
 let cardFooter = document.querySelector('.card-footer');
 let wpmDisp = document.querySelector('.wpmDisp');
 let accuracyDisp = document.querySelector('.accuracyDisp');
 let correctDisp = document.querySelector('.correctDisp');
 let incorrectDisp = document.querySelector('.incorrectDisp');
 
-// ********** Start Game **********
+// ********** Fetched Data **********
 
-startBtn.addEventListener('click', function () {
-  newGame(currentCategory);
+textCategory.addEventListener('input', function () {
+  textCategory.blur();
+  score.textContent = categoryDesc[textCategory.value];
+  currentCategory = apis[textCategory.value];
 });
-
-function newGame(category) {
-  category();
-
-  // reset counters
-  counter = 0;
-  loserCount = 0;
-  loserArr = [];
-  keypressArr = [];
-
-  // zero out score information on page
-  score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
-
-  // hides score card
-  cardFooter.classList.add('hide');
-
-  // removes focus outline on startBtn
-  startBtn.blur();
-}
 
 function randomCategory() {
   let randomApi = Math.floor(Math.random() * apis.length);
   newGame(apis[randomApi]);
 }
-
-// ********** Fetched Data **********
 
 function csTerms() {
   // terms from http://www.labautopedia.org/mw/List_of_programming_and_computer_science_terms
@@ -151,95 +173,32 @@ function catFacts() {
   xhr.send();
 }
 
-// ********** Type Functionality **********
+// ********** Start Game **********
 
-let textCategory = document.querySelector('.text-category');
-textCategory.addEventListener('input', function () {
-  textCategory.blur();
-  score.textContent = categoryDesc[textCategory.value];
-  currentCategory = apis[textCategory.value];
+startBtn.addEventListener('click', function () {
+  newGame(currentCategory);
 });
 
-// textData holds fetch data
-let textData = null;
+function newGame(category) {
+  category();
 
-// let textData = 'Press Shift + Enter or Click the Start Button';
+  // reset counters
+  counter = 0;
+  loserCount = 0;
+  loserArr = [];
+  keypressArr = [];
 
-// current position
-let counter = 0;
+  // zero out score information on page
+  score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
 
-// incorrect keypress references
-// are stored in loserArr
-let loserArr = [];
-let loserCount = 0;
+  // hides score card
+  cardFooter.classList.add('hide');
 
-// All keypress characters are stored in this array
-let keypressArr = [];
-let joinedText;
+  // removes focus outline on startBtn
+  startBtn.blur();
+}
 
-// typing accuracy in percentage
-let accuracy;
-
-// start time stored in milliseconds from 1970
-let startTime;
-
-// end time stored in milliseconds from 1970
-let endTime;
-
-// difference of endTime and startTime and converted ms to sec
-let finalTime;
-
-// calcuation of gross words per minute not accounting for errors
-let grossWPM;
-
-// calcuation of net words per minute accounting for errors
-let netWPM;
-
-// backspace & enter keypress logic
-document.addEventListener('keydown', function (e) {
-  // targets the backspace keypress
-  if (e.which === 8) {
-    // won't let you backspace at starting position
-    if (counter > 0) {
-      // backspace logic
-
-      // sets counter back
-      counter--;
-
-      // removes last item added to keypress array
-      keypressArr.pop();
-
-      // join keypress array for textDisplayBox
-      joinedText = keypressArr.join('');
-
-      // update DOM/Display text
-      textDisplayBox.innerHTML = '<span>' + joinedText +
-      '</span>' + textData.slice(counter);
-
-      // checks if any incorrect keypress references match the current counter position (boolean)
-      let checkCount = loserArr.some(function (val) {
-        return val === counter;
-      });
-
-      // if checkCount is true / the incorrect keypress reference is remove from the array
-      if (checkCount) loserArr.pop();
-
-      // update page to reflect score
-      score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
-    }
-  }
-
-  // targets the enter keypress
-  if (e.which === 13) {
-    if (e.shiftKey) {
-      // force newGame with shift + enter
-      newGame(currentCategory);
-    } else if (textData !== null && counter > textData.length) {
-      // only works works at the end of the game
-      newGame(currentCategory);
-    }
-  }
-});
+// ********** Main Typing Functionality **********
 
 // monitoring any keypress on the body of the page
 let keypress = document.querySelector('body');
@@ -325,6 +284,52 @@ keypress.addEventListener('keypress', function (e) {
   }
 });
 
+// backspace & enter keypress logic
+document.addEventListener('keydown', function (e) {
+  // targets the backspace keypress
+  if (e.which === 8) {
+    // won't let you backspace at starting position
+    if (counter > 0) {
+      // backspace logic
+
+      // sets counter back
+      counter--;
+
+      // removes last item added to keypress array
+      keypressArr.pop();
+
+      // join keypress array for textDisplayBox
+      joinedText = keypressArr.join('');
+
+      // update DOM/Display text
+      textDisplayBox.innerHTML = '<span>' + joinedText +
+      '</span>' + textData.slice(counter);
+
+      // checks if any incorrect keypress references match the current counter position (boolean)
+      let checkCount = loserArr.some(function (val) {
+        return val === counter;
+      });
+
+      // if checkCount is true / the incorrect keypress reference is remove from the array
+      if (checkCount) loserArr.pop();
+
+      // update page to reflect score
+      score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
+    }
+  }
+
+  // targets the enter keypress
+  if (e.which === 13) {
+    if (e.shiftKey) {
+      // force newGame with shift + enter
+      newGame(currentCategory);
+    } else if (textData !== null && counter > textData.length) {
+      // only works works at the end of the game
+      newGame(currentCategory);
+    }
+  }
+});
+
 // ********** Resources **********
 // https://www.speedtypingonline.com/typing-equations
 
@@ -333,7 +338,6 @@ keypress.addEventListener('keypress', function (e) {
 // TODO: make score infor on page show count / textData length - aka count/out of some num
 // TODO: disable spacebar scrolling
 // TODO: disable zooming
-// TODO: integrate input type range slider to select what xhr
 
 // ********** NOTE **********
 // NOTE: https://www.programmableweb.com/api/notable-and-quotable-random-quote
