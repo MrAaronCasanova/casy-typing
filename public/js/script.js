@@ -1,3 +1,7 @@
+let currentCategory = randomCategory;
+let apis = [randomCategory, ronQuotes, numFacts, talaikis, catFacts, csTerms];
+let categoryDesc = ['Random Category', 'Ron Swanson Quotes', 'Numeric Facts', 'Quotes on Quotes on Quotes', 'Cat Facts', 'Computer Science Terms'];
+
 // ********** DOM Elements **********
 
 let textDisplayBox = document.querySelector('.text-display-box');
@@ -12,13 +16,11 @@ let incorrectDisp = document.querySelector('.incorrectDisp');
 // ********** Start Game **********
 
 startBtn.addEventListener('click', function () {
-  newGame();
+  newGame(currentCategory);
 });
 
-function newGame() {
-  let apis = [ronQuotes, numFacts, talaikis, catFacts, csTerms, csTerms, csTerms, csTerms, csTerms, csTerms, csTerms];
-  let randomApi = Math.floor(Math.random() * apis.length);
-  apis[randomApi]();
+function newGame(category) {
+  category();
 
   // reset counters
   counter = 0;
@@ -29,7 +31,16 @@ function newGame() {
   // zero out score information on page
   score.textContent = 'Count: ' + counter + ' Wrong: ' + loserArr.length;
 
+  // hides score card
   cardFooter.classList.add('hide');
+
+  // removes focus outline on startBtn
+  startBtn.blur();
+}
+
+function randomCategory() {
+  let randomApi = Math.floor(Math.random() * apis.length);
+  newGame(apis[randomApi]);
 }
 
 // ********** Fetched Data **********
@@ -142,6 +153,13 @@ function catFacts() {
 
 // ********** Type Functionality **********
 
+let textCategory = document.querySelector('.text-category');
+textCategory.addEventListener('input', function () {
+  textCategory.blur();
+  score.textContent = categoryDesc[textCategory.value];
+  currentCategory = apis[textCategory.value];
+});
+
 // textData holds fetch data
 let textData = null;
 
@@ -215,10 +233,10 @@ document.addEventListener('keydown', function (e) {
   if (e.which === 13) {
     if (e.shiftKey) {
       // force newGame with shift + enter
-      newGame();
+      newGame(currentCategory);
     } else if (textData !== null && counter > textData.length) {
       // only works works at the end of the game
-      newGame();
+      newGame(currentCategory);
     }
   }
 });
@@ -307,18 +325,6 @@ keypress.addEventListener('keypress', function (e) {
   }
 });
 
-// ********** Custom Code **********
-
-// https://github.com/react-bootstrap/react-bootstrap/issues/1300
-// Deselects button after initial click
-// & spacebar won't click the button
-
-document.addEventListener('click', function (e) {
-  if (document.activeElement.toString() == '[object HTMLButtonElement]') {
-    document.activeElement.blur();
-  }
-});
-
 // ********** Resources **********
 // https://www.speedtypingonline.com/typing-equations
 
@@ -344,8 +350,6 @@ document.addEventListener('click', function (e) {
 // NOTE: http://www.labautopedia.org/mw/List_of_programming_and_computer_science_terms
 // NOTE: https://www.computerhope.com/jargon/program.htm
 // NOTE: http://computer.yourdictionary.com/#
-
-
 
 // NOTE: Solved 'Access-Control-Allow-Origin' with 'All Orgins'
 // http://multiverso.me/AllOrigins/
