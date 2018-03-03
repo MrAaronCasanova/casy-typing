@@ -36,11 +36,11 @@ let netWPM;
 // categories pointing to each xhr
 let apis = [randomCategory, ronQuotes, numFacts, talaikis, catFacts, csTerms];
 
-// starting category - updates via range slider
-let currentCategory = randomCategory;
-
 // used to display selected category
 let categoryDesc = ['Random Category', 'Ron Swanson Quotes', 'Numeric Facts', 'Quotes on Quotes on Quotes', 'Cat Facts', 'Computer Science Terms'];
+
+// starting category - updates via range slider
+let currentCategory = randomCategory;
 
 // ********** DOM Elements **********
 
@@ -48,6 +48,7 @@ let startBtn = document.querySelector('.start-btn');
 let score = document.querySelector('.score');
 let textCategory = document.querySelector('.text-category');
 let textDisplayBox = document.querySelector('.text-display-box');
+let capsLock = document.querySelector('.caps-lock');
 let cardFooter = document.querySelector('.card-footer');
 let wpmDisp = document.querySelector('.wpmDisp');
 let accuracyDisp = document.querySelector('.accuracyDisp');
@@ -284,7 +285,7 @@ keypress.addEventListener('keypress', function (e) {
   }
 });
 
-// backspace & enter keypress logic
+// backspace, enter & capslock keypress logic
 document.addEventListener('keydown', function (e) {
   // targets the backspace keypress
   if (e.which === 8) {
@@ -328,7 +329,13 @@ document.addEventListener('keydown', function (e) {
       newGame(currentCategory);
     }
   }
+
+  // true when you press the keyboard CapsLock key
+  let caps = e.getModifierState('CapsLock');
+  if (!caps) capsLock.classList.add('hide');
+  else capsLock.classList.remove('hide');
 });
+
 
 // ********** Resources **********
 // https://www.speedtypingonline.com/typing-equations
@@ -337,7 +344,7 @@ document.addEventListener('keydown', function (e) {
 // TODO: find more apis to use
 // TODO: make score infor on page show count / textData length - aka count/out of some num
 // TODO: disable spacebar scrolling
-// TODO: disable zooming
+// TODO: change category function&descArray to an array with nested objects
 
 // ********** NOTE **********
 // NOTE: https://www.programmableweb.com/api/notable-and-quotable-random-quote

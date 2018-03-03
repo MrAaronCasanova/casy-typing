@@ -1,83 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/style.css">
   <title>Casy Typing</title>
 </head>
+
 <body>
-<section class="main-section">
+  <section class="main-section">
 
-  <div class="container">
-  <h1 class="mb-2"><span class="logo">casy</span>Typing <button class="start-btn btn-secondary btn-lg">Start</button></h1>
-  <h6 class="text-center mb-4">Improve your typing and learn interesting facts!</h6>
-  </div>
+    <div class="container">
+      <h1 class="mb-2 mt-4"><span class="logo">casy</span>Typing <button class="start-btn btn-secondary btn-lg">Start</button></h1>
+      <h6 class="text-center mb-4">Improve your typing and learn interesting facts!</h6>
+    </div>
 
-  <div class="container mb-5">
-    <div class="card shadow">
-      <div class="card-header">
-        <h2 class="score text-center">Select Category</h2>
-        <div class="text-center">
-          <input class="text-category"type="range" min="0" max="5">
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="text-display-box text-center"><span></span>Press Shift + Enter or Click the Start Button</p>
-      </div>
-      <div class="card-footer text-muted">
-        <h5 class="display-4 text-center">Score</h5>
-        <div class="row">
-          <div class="col-sm-6 col-md-6 col-lg-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title text-center">WPM</h5>
-                <p class="card-text text-center wpmDisp">Ex. 59.63</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-6 col-lg-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title text-center">Accuracy</h5>
-                <p class="card-text text-center accuracyDisp">Ex. 100.00%</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-6 col-lg-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title text-center">Correct</h5>
-                <p class="card-text text-center correctDisp">Ex. 150</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 col-md-6 col-lg-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title text-center">Incorrect</h5>
-                <p class="card-text text-center incorrectDisp">Ex. 0</p>
-              </div>
-            </div>
+    <div class="container mb-5">
+      <div class="card shadow">
+        <div class="card-header">
+          <h2 class="score text-center">Select Category</h2>
+          <div class="text-center">
+            <input class="text-category" type="range" min="0" max="5" value="0">
           </div>
         </div>
-        <p class="text-center mt-4">Remember: You can press shift + enter at any time to start a new game!</p>
+        <div class="card-body">
+          <p class="text-display-box text-center"><span></span>Press Shift + Enter or Click the Start Button</p>
+          <p class="caps-lock text-center hide">WARNING: Caps Lock Is On</p>
+        </div>
+        <div class="card-footer text-muted">
+          <h5 class="display-4 text-center">Score</h5>
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-center">WPM</h5>
+                  <p class="card-text text-center wpmDisp">Ex. 59.63</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Accuracy</h5>
+                  <p class="card-text text-center accuracyDisp">Ex. 100.00%</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Correct</h5>
+                  <p class="card-text text-center correctDisp">Ex. 150</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-center">Incorrect</h5>
+                  <p class="card-text text-center incorrectDisp">Ex. 0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-center mt-4">Remember: You can press shift + enter at any time to start a new game!</p>
+        </div>
       </div>
     </div>
-  </div>
+
+    <footer class="text-center">
+      <a class="btn btn-secondary" href="http://casytravel.herokuapp.com/" target="_blank">Casy Travel</a>
+      <a class="btn btn-secondary" href="http://casynova.herokuapp.com/" target="_blank">Casy's Toolbox</a>
+    </footer>
+    <!-- .main-section / pushes footer to bottom of page -->
+  </section>
 
 
-  <footer class="text-center">
-    <a class="btn btn-secondary" href="http://casytravel.herokuapp.com/" target="_blank">Casy Travel</a>
-    <a class="btn btn-secondary" href="http://casynova.herokuapp.com/" target="_blank">Casy's Toolbox</a>
-  </footer>
-</section><!-- content div / pushes footer to bottom of page -->
-
-
-<script src="./js/jquery-3.3.1.min.js" charset="utf-8"></script>
-<script src="./js/bootstrap.min.js" charset="utf-8"></script>
-<script src="./js/script.js" charset="utf-8"></script>
+  <script src="./js/jquery-3.3.1.min.js" charset="utf-8"></script>
+  <script src="./js/bootstrap.min.js" charset="utf-8"></script>
+  <script src="./js/script.js" charset="utf-8"></script>
 </body>
+
 </html>
