@@ -336,7 +336,6 @@ document.addEventListener('keydown', function (e) {
   else capsLock.classList.remove('hide');
 });
 
-
 // ********** Resources **********
 // https://www.speedtypingonline.com/typing-equations
 
@@ -344,6 +343,7 @@ document.addEventListener('keydown', function (e) {
 // TODO: find more apis to use
 // TODO: make score infor on page show count / textData length - aka count/out of some num
 // TODO: disable spacebar scrolling
+// TODO: turn selectCategory field into dropdown
 // TODO: change category function&descArray to an array with nested objects
 
 // ********** NOTE **********
