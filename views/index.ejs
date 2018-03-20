@@ -5,82 +5,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
   <link rel="stylesheet" href="./css/style.css">
   <title>Casy Typing</title>
 </head>
 
 <body>
-  <section class="main-section">
+  <section class="main-wrapper">
 
-    <div class="container">
-      <h1 class="mb-2 mt-4"><span class="logo">casy</span>Typing <button class="start-btn btn-secondary btn-lg">Start</button></h1>
-      <h6 class="text-center mb-4">Improve your typing and learn interesting facts!</h6>
-    </div>
+    <header>
+      <h1>
+        <span class="logo">casy</span>Typing
+      </h1>
+      <button class="btn start-btn">Start</button>
+      <h6>Improve your typing and learn interesting facts!</h6>
+    </header>
 
-    <div class="container mb-5">
+    <main>
       <div class="card shadow">
         <div class="card-header">
           <h2 class="score text-center">Select Category</h2>
-          <div class="text-center">
+          <div>
             <input class="text-category" type="range" min="0" max="5" value="0">
           </div>
         </div>
         <div class="card-body">
-          <p class="text-display-box text-center"><span></span>Press Shift + Enter or Click the Start Button</p>
-          <p class="caps-lock text-center hide">WARNING: Caps Lock Is On</p>
+          <p class="text-display-box">
+            <span></span>Press Shift + Enter or Click the Start Button \n Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab magni labore debitis odio, explicabo totam quia
+            dolore? Totam porro iusto possimus error suscipit officiis dicta deserunt nostrum rem. Saepe, ut. Ducimus velit
+            unde illo natus quaerat repudiandae labore omnis odit, iste deserunt. Optio ipsum eligendi aliquid eos assumenda
+            ducimus odit enim quo.</p>
+          <p class="caps-lock hide">WARNING: Caps Lock Is On</p>
         </div>
         <div class="card-footer text-muted">
-          <h5 class="display-4 text-center">Score</h5>
-          <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title text-center">WPM</h5>
-                  <p class="card-text text-center wpmDisp">Ex. 59.63</p>
-                </div>
+          <div>
+            <h4>Score</h4>
+          </div>
+          <div class="score-cards">
+
+            <div class="score-card">
+              <div class="score-body">
+                <h5 class="score-title text-center">WPM</h5>
+                <p class="card-text wpmDisp">Ex. 59.63</p>
               </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Accuracy</h5>
-                  <p class="card-text text-center accuracyDisp">Ex. 100.00%</p>
-                </div>
+            <div class="score-card">
+              <div class="score-body">
+                <h5 class="score-title">Accuracy</h5>
+                <p class="card-text accuracyDisp">Ex. 100.00%</p>
               </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Correct</h5>
-                  <p class="card-text text-center correctDisp">Ex. 150</p>
-                </div>
+            <div class="score-card">
+              <div class="score-body">
+                <h5 class="score-title">Correct</h5>
+                <p class="card-text correctDisp">Ex. 150</p>
               </div>
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-3">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title text-center">Incorrect</h5>
-                  <p class="card-text text-center incorrectDisp">Ex. 0</p>
-                </div>
+            <div class="score-card">
+              <div class="score-body">
+                <h5 class="score-title">Incorrect</h5>
+                <p class="card-text incorrectDisp">Ex. 0</p>
               </div>
             </div>
           </div>
-          <p class="text-center mt-4">Remember: You can press shift + enter at any time to start a new game!</p>
+          <div class="reminder">
+            <p>Remember: You can press shift + enter at any time to start a new game!</p>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
 
-    <footer class="text-center">
-      <a class="btn btn-secondary" href="http://casytravel.herokuapp.com/" target="_blank">Casy Travel</a>
-      <a class="btn btn-secondary" href="http://casynova.herokuapp.com/" target="_blank">Casy's Toolbox</a>
+    <footer>
+      <a class="btn" href="http://casytravel.herokuapp.com/" target="_blank">Casy Travel</a>
+      <a class="btn" href="http://casynova.herokuapp.com/" target="_blank">Casy's Toolbox</a>
     </footer>
     <!-- .main-section / pushes footer to bottom of page -->
   </section>
 
-
-  <script src="./js/jquery-3.3.1.min.js" charset="utf-8"></script>
-  <script src="./js/bootstrap.min.js" charset="utf-8"></script>
   <script src="./js/script.js" charset="utf-8"></script>
 </body>
 
