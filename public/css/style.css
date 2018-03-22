@@ -41,13 +41,13 @@ header {
 }
 
 h1 {
-  margin: 10px;
   text-align: center;
   font-weight: 500;
   font-size: 3rem;
 }
 
 .btn {
+  margin: 10px;
   padding: 15px;
   border-radius: 5px;
   font-size: 19px;
@@ -73,15 +73,16 @@ main {
 .card {
   border: 1px solid #d8d8d8;
   border-radius: 5px;
+  box-shadow: 4px 10px 40px rgba(36, 36, 36, 0.44);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .card-header {
-  background-color: #f7f7f7;
-  flex-basis: 100px;
   align-self: stretch;
+  background-color: #f7f7f7;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,9 +90,14 @@ main {
 }
 
 h2 {
-  margin-bottom: 10px;
-  font-size: 2rem;
+  text-align: center;
   font-weight: 500;
+  font-size: 2rem;
+  margin: 20px;
+}
+
+div input {
+  margin-bottom: 20px;
 }
 
 .card-body {
@@ -142,17 +148,18 @@ h4 {
   color: #6c757c;
   font-size: 50px;
   font-weight: 200;
-  padding: 20px;
+  padding: 20px 0 5px;
 }
 
 .score-cards {
+  margin: 20px;
   align-self: stretch;
   display: flex;
   justify-content: space-around;
 }
 
 .score-card {
-  flex-basis: 20%;
+  flex-basis: 22%;
   background-color: #fff;
   border: 1px solid #d8d8d8;
   border-radius: 4px;
@@ -173,7 +180,9 @@ h5 {
 }
 
 .score-body p,
-.reminder {
+.reminder,
+.reminder p {
+  text-align: center;
   color: #6c757c;
 }
 
@@ -184,6 +193,13 @@ h5 {
 footer {
   align-self: center;
   margin-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+footer a {
+  text-align: center;
+  flex: 1 1 auto;
 }
 
 em {
@@ -191,10 +207,6 @@ em {
   color: #b34f59;
   font-style: normal;
   text-decoration: underline;
-}
-
-.shadow {
-  box-shadow: 4px 10px 40px rgba(36, 36, 36, 0.44);
 }
 
 .caps-lock {
@@ -214,5 +226,22 @@ em {
   }
   100% {
     border-right: 2px solid rgba(47, 47, 47, 0);
+  }
+}
+
+@media (max-width: 850px) {
+  .score-cards {
+    flex-wrap: wrap;
+  }
+  .score-card {
+    margin: 10px;
+    flex: 0 1 45%;
+  }
+}
+
+@media (max-width: 530px) {
+  .score-card {
+    margin: 10px;
+    flex: 0 1 90%;
   }
 }
