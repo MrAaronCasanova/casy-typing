@@ -6,7 +6,7 @@ let textData = null;
 // current position
 let counter = 0;
 
-// incorrect keypress references
+// incorrect keypress (references of textData index)
 // are stored in loserArr
 let loserArr = [];
 let loserCount = 0;
