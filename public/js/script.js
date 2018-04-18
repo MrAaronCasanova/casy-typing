@@ -37,7 +37,14 @@ let netWPM;
 let apis = [randomCategory, ronQuotes, numFacts, talaikis, catFacts, csTerms];
 
 // used to display selected category
-let categoryDesc = ['Random Category', 'Ron Swanson Quotes', 'Numeric Facts', 'Quotes on Quotes on Quotes', 'Cat Facts', 'Computer Science Terms'];
+let categoryDesc = [
+  'Random Category',
+  'Ron Swanson Quotes',
+  'Numeric Facts',
+  'Quotes on Quotes on Quotes',
+  'Cat Facts',
+  'Computer Science Terms'
+];
 
 // starting category - updates via range slider
 let currentCategory = randomCategory;
@@ -57,7 +64,7 @@ let incorrectDisp = document.querySelector('.incorrectDisp');
 
 // ********** Fetched Data **********
 
-textCategory.addEventListener('input', function () {
+textCategory.addEventListener('input', function() {
   textCategory.blur();
   score.textContent = categoryDesc[textCategory.value];
   currentCategory = apis[textCategory.value];
@@ -70,12 +77,13 @@ function randomCategory() {
 
 function csTerms() {
   // terms from http://www.labautopedia.org/mw/List_of_programming_and_computer_science_terms
-  let termsUrl = 'https://raw.githubusercontent.com/MrAaronCasanova/casy-typing-resources/master/labautopedia-terms/labautopedia-terms';
+  let termsUrl =
+    'https://raw.githubusercontent.com/MrAaronCasanova/casy-typing-resources/master/labautopedia-terms/labautopedia-terms';
   let urlSuffix = '.json';
   let randomUrlNum = Math.floor(Math.random() * 13);
   let xhr = new XMLHttpRequest();
   xhr.open('GET', termsUrl + randomUrlNum + urlSuffix);
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText);
       let randomNum = Math.floor(Math.random() * resData.length);
@@ -96,7 +104,7 @@ function ronQuotes() {
   let ronUrl = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
   let xhr = new XMLHttpRequest();
   xhr.open('GET', ronUrl);
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText)[0];
       let mainText = resData + ' - Ron Swanson';
@@ -118,7 +126,7 @@ function numFacts() {
   let randomSuffix = Math.floor(Math.random() * urlSuffix.length);
   let xhr = new XMLHttpRequest();
   xhr.open('GET', numUrl + urlSuffix[randomSuffix]);
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = xhr.responseText;
 
@@ -137,7 +145,7 @@ function talaikis() {
   let talaikisUrl = 'https://talaikis.com/api/quotes/random/';
   let xhr = new XMLHttpRequest();
   xhr.open('GET', talaikisUrl);
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText);
       let mainText = resData.quote + ' - ' + resData.author;
@@ -154,10 +162,11 @@ function talaikis() {
 }
 
 function catFacts() {
-  let catFactsUrl = 'https://raw.githubusercontent.com/vadimdemedes/cat-facts/master/cat-facts.json';
+  let catFactsUrl =
+    'https://raw.githubusercontent.com/vadimdemedes/cat-facts/master/cat-facts.json';
   let xhr = new XMLHttpRequest();
   xhr.open('GET', catFactsUrl);
-  xhr.onreadystatechange = function () {
+  xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       let resData = JSON.parse(xhr.responseText);
       let randomNum = Math.floor(Math.random() * resData.length);
@@ -176,7 +185,7 @@ function catFacts() {
 
 // ********** Start Game **********
 
-startBtn.addEventListener('click', function () {
+startBtn.addEventListener('click', function() {
   newGame(currentCategory);
 });
 
@@ -203,7 +212,7 @@ function newGame(category) {
 
 // monitoring any keypress on the body of the page
 let keypress = document.querySelector('body');
-keypress.addEventListener('keypress', function (e) {
+keypress.addEventListener('keypress', function(e) {
   // checks counter against textData.length to verify if game is active
   if (textData !== null && counter < textData.length && e.which !== 13) {
     // checks if keypress matches the charCode of specific textData char
@@ -218,8 +227,8 @@ keypress.addEventListener('keypress', function (e) {
       joinedText = keypressArr.join('');
 
       // update DOM/Display text
-      textDisplayBox.innerHTML = '<span>' + joinedText +
-      '</span>' + textData.slice(counter + 1);
+      textDisplayBox.innerHTML =
+        '<span>' + joinedText + '</span>' + textData.slice(counter + 1);
 
       // increment counter / current position
       counter++;
@@ -231,16 +240,14 @@ keypress.addEventListener('keypress', function (e) {
       loserArr.push(counter);
 
       // stores incorrect character at current counter position in keypress array
-      keypressArr.push('<em>' +
-      textData[counter] +
-      '</em>');
+      keypressArr.push('<em>' + textData[counter] + '</em>');
 
       // join keypress array for textDisplayBox
       joinedText = keypressArr.join('');
 
       // update DOM/Display text
-      textDisplayBox.innerHTML = '<span>' + joinedText +
-      '</span>' + textData.slice(counter + 1);
+      textDisplayBox.innerHTML =
+        '<span>' + joinedText + '</span>' + textData.slice(counter + 1);
 
       // increment counter / current position
       counter++;
@@ -266,11 +273,15 @@ keypress.addEventListener('keypress', function (e) {
 
       // calutates WPM logic - view resources for web reference
       // side note: finalTime / 60 converts seconds to minutes
-      grossWPM = ((textData.length / 5) / (finalTime / 60)).toFixed(2);
-      netWPM = (grossWPM - (loserCount / (finalTime / 60))).toFixed(2);
+      grossWPM = (textData.length / 5 / (finalTime / 60)).toFixed(2);
+      netWPM = (grossWPM - loserCount / (finalTime / 60)).toFixed(2);
 
       // accuracy logic
-      accuracy = (((textData.length - loserCount) / textData.length) * 100).toFixed(2);
+      accuracy = (
+        (textData.length - loserCount) /
+        textData.length *
+        100
+      ).toFixed(2);
 
       // update page with score information
       score.innerHTML = 'Press Enter to Start New Game';
@@ -286,11 +297,11 @@ keypress.addEventListener('keypress', function (e) {
 });
 
 // backspace, enter & capslock keypress logic
-document.addEventListener('keydown', function (e) {
+document.addEventListener('keydown', function(e) {
   // targets the backspace keypress
   if (e.which === 8) {
-    // won't let you backspace at starting position
-    if (counter > 0) {
+    // won't let you backspace at starting/ending position
+    if (counter > 0 && counter < textData.length + 1) {
       // backspace logic
 
       // sets counter back
@@ -303,11 +314,11 @@ document.addEventListener('keydown', function (e) {
       joinedText = keypressArr.join('');
 
       // update DOM/Display text
-      textDisplayBox.innerHTML = '<span>' + joinedText +
-      '</span>' + textData.slice(counter);
+      textDisplayBox.innerHTML =
+        '<span>' + joinedText + '</span>' + textData.slice(counter);
 
       // checks if any incorrect keypress references match the current counter position (boolean)
-      let checkCount = loserArr.some(function (val) {
+      let checkCount = loserArr.some(function(val) {
         return val === counter;
       });
 

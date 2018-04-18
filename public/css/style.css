@@ -130,6 +130,11 @@ span {
 
 span {
   color: #3b8739;
+}
+
+span::after {
+  content: '';
+  border-right: 2px solid #2f2f2f;
   animation: blinkingCursor;
   animation-duration: 0.9s;
   animation-timing-function: linear;
@@ -220,13 +225,13 @@ em {
 
 @keyframes blinkingCursor {
   0% {
-    border-right: 2px solid rgba(47, 47, 47, 0);
+    opacity: 0;
   }
   50% {
-    border-right: 2px solid #2f2f2f;
+    opacity: 1;
   }
   100% {
-    border-right: 2px solid rgba(47, 47, 47, 0);
+    opacity: 0;
   }
 }
 
